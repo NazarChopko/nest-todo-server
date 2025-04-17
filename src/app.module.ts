@@ -12,6 +12,7 @@ import { PrismaService } from './services/prismaClient/prisma.service';
 import { TodoModule } from './todo/todo.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { MyCacheModule } from './cache/cache.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { join } from 'path';
     UserModule,
     AuthModule,
     TodoModule,
+    MyCacheModule,
   ],
   controllers: [AppController],
   providers: [AppService, SeedService, PrismaService],

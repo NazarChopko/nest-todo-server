@@ -10,4 +10,6 @@ export default () => ({
   smtpSecure: process.env.SMTP_SECURE,
   smtpPort: Number(process.env.SMTP_PORT) || 587,
   smtpClient: process.env.SMTP_CLIENT as string,
+  redisHost: process.env.REDIS_HOST as string,
+  redisPort: process.env.REDIS_PORT as string,
 });

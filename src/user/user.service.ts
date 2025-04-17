@@ -10,6 +10,8 @@ import {
   HeadObjectCommand,
   GetObjectCommand,
 } from '@aws-sdk/client-s3';
+import { UserDtoForCache } from './dto/user.dto';
+import { Cached } from 'src/decorators/cache.decorator';
 
 @Injectable()
 export class UserService {
@@ -106,8 +108,9 @@ export class UserService {
     });
   }
 
-  async getAccount(email: string): Promise<UserProfile | null> {
-    return this.prismaClient.user.findUnique({
+  @Cached(UserDtoForCache, 60, (email: string) => email)
+  async getAccount(email: string): Promise<UserProfile | any> {
+    const user = await this.prismaClient.user.findUnique({
       where: {
         email,
       },
@@ -120,6 +123,8 @@ export class UserService {
         userInfo: true,
       },
     });
+
+    return user;
   }
 
   async downloadFile(fileName: string) {
